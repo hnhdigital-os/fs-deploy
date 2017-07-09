@@ -13,6 +13,6 @@
     "git-commit": "git-commit",
     "git-version": "git-version",
     "main": "bin/main",
-    "output": "gits3r.phar",
+    "output": "git-deploy.phar",
     "stub": true
 }
