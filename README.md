@@ -37,6 +37,16 @@ GitDeploy comes with the ability to self-update:
 
 `$ git-deploy self-update`
 
+## Available remote filesystems
+
+* AWS S3
+
+## Missing
+
+GitDeploy uses the [![Flysystem](https://github.com/thephpleague?utf8=✓&q=flysystem) package, so any of the adapters that have been built can be implemented into GitDeploy.
+
+Feel free to PR.
+
 ## Contributing
 
 Please see [CONTRIBUTING](https://github.com/hnhdigital-os/git-deploy/blob/master/CONTRIBUTING.md) for details.
