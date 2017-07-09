@@ -469,7 +469,7 @@ class SelfUpdateCommand extends Command
             $response = $client->get($url, ['sink' => $output_path]);
         } catch (\Exception $exception) {
             throw new \Exception(sprintf(
-                'Download error: %s.', $exception->getResponse()
+                'Download error: %s.', $exception->getMessage()
             ));
 
             exit(1);
