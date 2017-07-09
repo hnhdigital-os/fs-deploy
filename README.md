@@ -8,8 +8,8 @@
 ```
 Provides the ability to create deployment configuration that can be used to deploy files to a remote (or local) filesystem.
 
-[![Github Releases](https://img.shields.io/github/downloadshnhdigital-os/git-deploy/latest/total.svg)](https://github.com/hnhdigital-os/git-deploy) [![GitHub release](https://img.shields.io/github/release/hnhdigital-os/git-deploy.svg)]()
-.
+[![Github Releases](https://img.shields.io/github/downloads/hnhdigital-os/git-deploy/latest/total.svg)](https://github.com/hnhdigital-os/git-deploy) [![GitHub release](https://img.shields.io/github/release/hnhdigital-os/git-deploy.svg)]()
+
 [![StyleCI](https://styleci.io/repos/96600391/shield?branch=master)](https://styleci.io/repos/96600391) [![Issue Count](https://codeclimate.com/github/hnhdigital-os/git-deploy/badges/issue_count.svg)](https://codeclimate.com/github/hnhdigital-os/git-deploy) [![Code Climate](https://codeclimate.com/github/hnhdigital-os/git-deploy/badges/gpa.svg)](https://codeclimate.com/github/hnhdigital-os/git-deploy) 
 
 This package has been developed by H&H|Digital, an Australian botique developer. Visit us at [hnh.digital](http://hnh.digital).
