@@ -2,7 +2,7 @@
 
 namespace HnhDigital\GitDeploy\Commands;
 
-use Guzzle\Client as Guzzle;
+use GuzzleHttp\Client as Guzzle;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
