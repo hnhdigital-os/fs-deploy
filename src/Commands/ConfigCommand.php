@@ -129,8 +129,8 @@ class ConfigCommand extends Command
 
         if (file_exists($this->cwd.'/.gitignore')) {
             $gitignore_contents = file_get_contents($this->cwd.'/.gitignore');
-            if (stripos($gitignore_contents, '.gitdeploy') === false) {
-                $gitignore_contents = rtrim($gitignore_contents)."\n/.gitignore";
+            if (stripos($gitignore_contents, $this->config_path) === false) {
+                $gitignore_contents = rtrim($gitignore_contents)."\n/".$this->config_path;
                 file_put_contents($this->cwd.'/.gitignore', $gitignore_contents);
             }
         }
