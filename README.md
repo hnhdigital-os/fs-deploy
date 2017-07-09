@@ -41,7 +41,7 @@ GitDeploy comes with the ability to self-update:
 
 * AWS S3
 
-## Missing
+## Missing filesystems
 
 GitDeploy uses the [Flysystem](https://github.com/thephpleague?utf8=✓&q=flysystem) package, so any of the adapters that have been built can be implemented into GitDeploy.
 
