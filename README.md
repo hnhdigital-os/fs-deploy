@@ -18,6 +18,7 @@ This package has been developed by H&H|Digital, an Australian botique developer.
 ## Install
 
 `$ bash <(curl -H -s https://hnhdigital-os.github.io/git-deploy/install)`
+
 `$ mv git-deploy /usr/local/bin/git-deploy`
 
 ## Usage
