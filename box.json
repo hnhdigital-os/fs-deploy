@@ -1,0 +1,18 @@
+{
+    "chmod": "0755",
+    "finder": [
+        {
+            "name": "*.php",
+            "in": "src"
+        },
+        {
+            "name": "*.php",
+            "in": "vendor"
+        }
+    ],
+    "git-commit": "git-commit",
+    "git-version": "git-version",
+    "main": "bin/main",
+    "output": "gits3r.phar",
+    "stub": true
+}

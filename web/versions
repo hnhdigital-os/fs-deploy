@@ -1,0 +1,5 @@
+{
+    "stable": [{"path": "/download//installer.phar", "version": "", "min-php": 70000}],
+    "preview": [{"path": "/download//installer.phar", "version": "", "min-php": 70000}],
+    "snapshot": [{"path": "/download/snapshot/installer.phar", "version": "", "min-php": 70000}]
+}

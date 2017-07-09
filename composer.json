@@ -1,0 +1,36 @@
+{
+    "name": "hnhdigital-os/git-deploy",
+    "description": "GIT repo deploy",
+    "type": "project",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Rocco Howard",
+            "email": "rocco@hnh.digital"
+        }
+    ],
+    "require": {
+        "symfony/console": "3.*",
+        "symfony/filesystem": "^3.3",
+        "symfony/process": "^3.3",
+        "guzzlehttp/guzzle": "~6.0",
+        "illuminate/support": "^5.4",
+        "symfony/yaml": "^3.3",
+        "league/flysystem": "^1.0",
+        "league/flysystem-aws-s3-v3": "^1.0"
+    },
+
+    "autoload": {
+        "files": [
+            "vendor/illuminate/support/helpers.php"
+        ],
+        "psr-4": {
+            "HnhDigital\\GitDeploy\\": "src/"
+        }
+    },
+    "config": {
+        "preferred-install": "dev"
+    },
+    "prefer-stable": true,
+    "minimum-stability": "dev"
+}
