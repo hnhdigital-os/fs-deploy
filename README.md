@@ -43,7 +43,7 @@ GitDeploy comes with the ability to self-update:
 
 ## Missing
 
-GitDeploy uses the [![Flysystem](https://github.com/thephpleague?utf8=✓&q=flysystem) package, so any of the adapters that have been built can be implemented into GitDeploy.
+GitDeploy uses the [Flysystem](https://github.com/thephpleague?utf8=✓&q=flysystem) package, so any of the adapters that have been built can be implemented into GitDeploy.
 
 Feel free to PR.
 
