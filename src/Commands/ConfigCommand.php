@@ -2,7 +2,6 @@
 
 namespace HnhDigital\GitDeploy\Commands;
 
-use Guzzle\Client as Guzzle;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -95,8 +94,8 @@ class ConfigCommand extends Command
     /**
      * Execute the command.
      *
-     * @param  InputInterface  $input
-     * @param  OutputInterface $output
+     * @param InputInterface  $input
+     * @param OutputInterface $output
      *
      * @return void
      */
@@ -151,10 +150,11 @@ class ConfigCommand extends Command
         if (count($this->config['deployments']) == 0) {
             $this->output->writeln('');
             $this->output->writeln('<info>Let\'s get started</info>');
+
             return $this->newDeployment();
         }
 
-            $this->output->writeln('');
+        $this->output->writeln('');
         $this->output->writeln('Available options:');
         $this->output->writeln('[1] <info>New deployment</info>');
         $options_count = 1;
@@ -163,25 +163,25 @@ class ConfigCommand extends Command
             $this->output->writeln('['.$options_count.'] <comment>Edit: ['.$deployment['method'].'] '.$this->displayDeploymentLine($deployment).'</comment>');
         }
 
-        $save_option = $options_count+1;
-        $save_exit_option = $options_count+2;
-        $exit_option = $options_count+3;
+        $save_option = $options_count + 1;
+        $save_exit_option = $options_count + 2;
+        $exit_option = $options_count + 3;
 
         $this->output->writeln('['.$save_option.'] <options=underscore>Save changes</>');
         $this->output->writeln('['.$save_exit_option.'] <options=underscore>Save & exit</>');
         $this->output->writeln('['.$exit_option.'] <fg=red>Exit</>');
 
         $this->output->writeln('');
-        $question = new Question('Choose option: ');        
-        $question->setValidator(function ($value) use($options_count) {
+        $question = new Question('Choose option: ');
+        $question->setValidator(function ($value) use ($options_count) {
             if (trim($value) == '') {
                 throw new \Exception('The selected option cannot be empty');
             }
             if (!is_numeric($value)) {
                 throw new \Exception('The selected option should be numeric.');
             }
-            if ($value < 1 || $value > $options_count+3) {
-                throw new \Exception('The selected option should be between 1 and '.($options_count+3).'.');
+            if ($value < 1 || $value > $options_count + 3) {
+                throw new \Exception('The selected option should be between 1 and '.($options_count + 3).'.');
             }
 
             return $value;
@@ -193,17 +193,15 @@ class ConfigCommand extends Command
         } elseif ($mode == $save_option) {
             $this->saveConfig();
             $this->newOrEditExisting();
-
         } elseif ($mode == $save_exit_option) {
             $this->saveConfig();
 
             exit(0);
         } elseif ($mode == $exit_option) {
-
             exit(0);
         }
 
-        $deployment_id = $options_count-2;
+        $deployment_id = $options_count - 2;
 
         $this->output->writeln('');
 
@@ -217,7 +215,7 @@ class ConfigCommand extends Command
         $this->output->writeln('[3] <comment>Cancel</comment>');
         $question = new Question('Choose option? (default: edit): ', '1');
 
-        $question->setValidator(function ($value) use($options_count) {
+        $question->setValidator(function ($value) use ($options_count) {
             if (trim($value) == '') {
                 throw new \Exception('The selected option cannot be empty');
             }
@@ -227,6 +225,7 @@ class ConfigCommand extends Command
             if ($value < 1 || $value > 3) {
                 throw new \Exception('That is not a valid option');
             }
+
             return $value;
         });
         $option = $this->helper->ask($this->input, $this->output, $question);
@@ -256,13 +255,12 @@ class ConfigCommand extends Command
         }
 
         return '<error>Not a valid method</error>';
-        
     }
 
     /**
      * Display the deployment information.
      *
-     * @param integer $deployment_id
+     * @param int $deployment_id
      *
      * @return void
      */
@@ -286,7 +284,7 @@ class ConfigCommand extends Command
 
         // Show configuration options nicely.
         foreach ($config as $key => $title) {
-            $this->output->writeln(str_pad($title.':', $longest_title+1, ' ', STR_PAD_LEFT).' '.$deployment[$key]);
+            $this->output->writeln(str_pad($title.':', $longest_title + 1, ' ', STR_PAD_LEFT).' '.$deployment[$key]);
         }
     }
 
@@ -301,7 +299,7 @@ class ConfigCommand extends Command
         $this->output->writeln('');
         $this->output->writeln('Available filesystems:');
         foreach ($this->flysystems as $count => list($key, $name)) {
-            $this->output->writeln('['.($count+1).'] '.$name);
+            $this->output->writeln('['.($count + 1).'] '.$name);
         }
         $this->output->writeln('');
 
@@ -309,7 +307,7 @@ class ConfigCommand extends Command
 
         // Choose filesystem from list.
         $question = new Question('Select filesystem [1-'.$options_count.']: ');
-        $question->setValidator(function ($value) use($options_count) {
+        $question->setValidator(function ($value) use ($options_count) {
             if (trim($value) == '') {
                 throw new \Exception('The filesystem choice cannot be empty');
             }
@@ -327,10 +325,10 @@ class ConfigCommand extends Command
         $filesystem_id = $this->helper->ask($this->input, $this->output, $question);
 
         $this->output->writeln('');
-        $this->output->writeln('<info>'.$this->flysystems[$filesystem_id-1][1].'</info>');
+        $this->output->writeln('<info>'.$this->flysystems[$filesystem_id - 1][1].'</info>');
         $this->output->writeln('');
 
-        $method = 'flysystem'.ucfirst($this->flysystems[$filesystem_id-1][0]);
+        $method = 'flysystem'.ucfirst($this->flysystems[$filesystem_id - 1][0]);
 
         // Run specific method's filesystem configuration.
         $this->$method();
@@ -345,7 +343,6 @@ class ConfigCommand extends Command
      */
     private function flysystemCopy()
     {
-
     }
 
     /**
@@ -355,7 +352,6 @@ class ConfigCommand extends Command
      */
     private function flysystemDropbox()
     {
-
     }
 
     /**
@@ -365,7 +361,6 @@ class ConfigCommand extends Command
      */
     private function flysystemEventable()
     {
-
     }
 
     /**
@@ -375,7 +370,6 @@ class ConfigCommand extends Command
      */
     private function flysystemGridFs()
     {
-
     }
 
     /**
@@ -385,7 +379,6 @@ class ConfigCommand extends Command
      */
     private function flysystemRackspace()
     {
-
     }
 
     /**
@@ -397,12 +390,12 @@ class ConfigCommand extends Command
     {
         // Defaults.
         $config = [
-            'method'       => 's3',
-            'key'          => '',
-            'secret'       => '',
-            'region'       => 'us-east-1',
-            'bucket'       => '',
-            'local_path'  => '/',
+            'method'         => 's3',
+            'key'            => '',
+            'secret'         => '',
+            'region'         => 'us-east-1',
+            'bucket'         => '',
+            'local_path'     => '/',
             'remote_path'    => '/',
         ];
 
@@ -464,7 +457,6 @@ class ConfigCommand extends Command
      */
     private function flysystemSftp()
     {
-
     }
 
     /**
@@ -474,7 +466,6 @@ class ConfigCommand extends Command
      */
     private function flysystemWebdav()
     {
-
     }
 
     /**
@@ -484,7 +475,6 @@ class ConfigCommand extends Command
      */
     private function flysystemVfs()
     {
-
     }
 
     /**
@@ -494,7 +484,6 @@ class ConfigCommand extends Command
      */
     private function flysystemZiparchive()
     {
-
     }
 
     /**
@@ -507,6 +496,7 @@ class ConfigCommand extends Command
         $this->output->writeln('');
         $this->output->writeln('<info>Configuration saved!</info>');
         $this->output->writeln('');
+
         return file_put_contents($this->cwd.'/'.$this->config_path, Yaml::dump($this->config));
     }
 }
