@@ -9,5 +9,5 @@ fi
 
 target=$(curl -s https://hnhdigital-os.github.io/git-deploy/$version)
 
-curl -o ./git-deploy -LSs https://hnhdigital-os.github.io/download/$target/git-deploy.phar
+curl -o ./git-deploy -LSs https://hnhdigital-os.github.io/git-deploy/download/$target/git-deploy.phar
 chmod 755 ./git-deploy
