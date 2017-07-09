@@ -84,8 +84,8 @@ class SelfUpdateCommand extends Command
     /**
      * Execute the command.
      *
-     * @param  InputInterface  $input
-     * @param  OutputInterface $output
+     * @param InputInterface  $input
+     * @param OutputInterface $output
      *
      * @return void
      */
@@ -95,7 +95,7 @@ class SelfUpdateCommand extends Command
 
         if ($this->newVersionAvailable()) {
             $this->setLocalPharFile();
-            $this->setTempDirectory();            
+            $this->setTempDirectory();
             $this->backupPhar();
             $this->downloadPhar();
             $this->replacePhar();
@@ -118,11 +118,11 @@ class SelfUpdateCommand extends Command
 
         $this->new_version = trim($this->download($this->source_url.'/'.$this->release));
 
-        return ($this->old_version !== $this->new_version);
+        return $this->old_version !== $this->new_version;
     }
 
     /**
-     * Perform an rollback to previous version
+     * Perform an rollback to previous version.
      *
      * @return bool
      */
@@ -131,11 +131,12 @@ class SelfUpdateCommand extends Command
         if (!$this->restorePhar()) {
             return false;
         }
+
         return true;
     }
 
     /**
-     * Set backup extension for old phar versions
+     * Set backup extension for old phar versions.
      *
      * @param string $extension
      */
@@ -147,7 +148,7 @@ class SelfUpdateCommand extends Command
     }
 
     /**
-     * Get backup extension for old phar versions
+     * Get backup extension for old phar versions.
      *
      * @return string
      */
@@ -194,12 +195,12 @@ class SelfUpdateCommand extends Command
     public function getTempPharFile()
     {
         return $this->getTempDirectory()
-            . '/'
-            . sprintf('%s.phar.temp', $this->getLocalPharFileBasename());
+            .'/'
+            .sprintf('%s.phar.temp', $this->getLocalPharFileBasename());
     }
 
     /**
-     * Set backup path for old phar versions
+     * Set backup path for old phar versions.
      *
      * @param string $file_path
      */
@@ -225,7 +226,7 @@ class SelfUpdateCommand extends Command
     }
 
     /**
-     * Get backup path for old phar versions
+     * Get backup path for old phar versions.
      *
      * @return string
      */
@@ -235,7 +236,7 @@ class SelfUpdateCommand extends Command
     }
 
     /**
-     * Set path for the backup phar to rollback/restore from
+     * Set path for the backup phar to rollback/restore from.
      *
      * @param string $file_path
      */
@@ -258,7 +259,7 @@ class SelfUpdateCommand extends Command
     }
 
     /**
-     * Get path for the backup phar to rollback/restore from
+     * Get path for the backup phar to rollback/restore from.
      *
      * @return string
      */
@@ -314,7 +315,6 @@ class SelfUpdateCommand extends Command
             $this->cleanupAfterError();
             throw $e;
         }
-
     }
 
     /**
@@ -325,6 +325,7 @@ class SelfUpdateCommand extends Command
     protected function validatePhar($phar)
     {
         chmod($phar, fileperms($this->getLocalPharFile()));
+
         return $this;
     }
 
@@ -426,8 +427,8 @@ class SelfUpdateCommand extends Command
         }
 
         return $this->getTempDirectory()
-            . '/'
-            . sprintf('%s%s', $this->getLocalPharFileBasename(), $this->getBackupExtension());
+            .'/'
+            .sprintf('%s%s', $this->getLocalPharFileBasename(), $this->getBackupExtension());
     }
 
     /**
@@ -442,15 +443,15 @@ class SelfUpdateCommand extends Command
         }
 
         return $this->getTempDirectory()
-            . '/'
-            . sprintf('%s%s', $this->getLocalPharFileBasename(), $this->getBackupExtension()
+            .'/'
+            .sprintf('%s%s', $this->getLocalPharFileBasename(), $this->getBackupExtension()
         );
     }
 
     /**
      * Download a file.
      *
-     * @param string $url
+     * @param string      $url
      * @param null|string $output_path
      *
      * @return void
@@ -475,7 +476,7 @@ class SelfUpdateCommand extends Command
         }
 
         $contents = file_get_contents($output_path);
-        
+
         if ($is_temp) {
             unlink($output_path);
         }

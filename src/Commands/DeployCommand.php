@@ -2,12 +2,9 @@
 
 namespace HnhDigital\GitDeploy\Commands;
 
-use Guzzle\Client as Guzzle;
-use HnhDigital\GitDeploy\Traits\SupportTrait;
 use League\Flysystem\Adapter\Local as LocalAdapter;
 use League\Flysystem\AwsS3v3\AwsS3Adapter;
 use League\Flysystem\Filesystem;
-use League\Flysystem\MountManager;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -58,8 +55,8 @@ class DeployCommand extends Command
     /**
      * Execute the command.
      *
-     * @param  InputInterface  $input
-     * @param  OutputInterface $output
+     * @param InputInterface  $input
+     * @param OutputInterface $output
      *
      * @return void
      */
@@ -149,7 +146,6 @@ class DeployCommand extends Command
         }
 
         return '<error>Not a valid method</error>';
-        
     }
 
     /**
@@ -171,6 +167,7 @@ class DeployCommand extends Command
                     'region'  => $deployment['region'],
                     'version' => 'latest',
                 ]);
+
                 return new AwsS3Adapter($client, $deployment['bucket'], $deployment['remote_path']);
         }
     }
