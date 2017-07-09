@@ -460,13 +460,13 @@ class SelfUpdateCommand extends Command
     {
         $is_temp = false;
         if (is_null($output_path)) {
-            $output_path = tempnam('/tmp', 'gits3r');
+            $output_path = tempnam('/tmp', 'git-deploy');
             $is_temp = true;
         }
         $client = new Guzzle();
 
         try {
-            $response = $client->get($url, ['sink' => $temp_file]);
+            $response = $client->get($url, ['sink' => $output_path]);
         } catch (\Exception $exception) {
             throw new \Exception(sprintf(
                 'Download error: %s.', $exception->getResponse()
