@@ -114,14 +114,13 @@ class DeployCommand extends Command
                     continue;
                 }
             }
-            
+
             // Visual.
             $this->output->writeln('Processing <info>['.$deployment['method'].'] '.$this->displayDeploymentLine($deployment).'</info>');
 
             // Deployment requires confirmation.
             if (array_has($deployment, 'confirm')) {
                 if (stripos($deployment['confirm'], 'Y') !== false) {
-
                     $question = new Question('Confirm deployment [y/N]: ', 'N');
                     $answered = false;
 
