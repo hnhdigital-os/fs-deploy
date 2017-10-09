@@ -279,6 +279,7 @@ class SelfUpdateCommand extends Command
 
         if ($result === false) {
             $this->cleanupAfterError();
+
             throw new \Exception(sprintf(
                 'Unable to backup %s to %s.',
                 $this->getLocalPharFile(),
@@ -313,6 +314,7 @@ class SelfUpdateCommand extends Command
         } catch (\Exception $e) {
             restore_error_handler();
             $this->cleanupAfterError();
+
             throw $e;
         }
     }
