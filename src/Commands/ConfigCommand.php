@@ -70,13 +70,15 @@ class ConfigCommand extends Command
     ];
 
     private $s3_options = [
-        'method'      => 'Method',
-        'key'         => 'Key',
-        'secret'      => 'Secret',
-        'region'      => 'Region',
-        'bucket'      => 'Bucket',
-        'local_path'  => 'Source path',
-        'remote_path' => 'Destination path',
+        'confirm'      => 'Confirm before deployment',
+        'profile_name' => 'Profile name',
+        'method'       => 'Method',
+        'key'          => 'Key',
+        'secret'       => 'Secret',
+        'region'       => 'Region',
+        'bucket'       => 'Bucket',
+        'local_path'   => 'Source path',
+        'remote_path'  => 'Destination path',
     ];
 
     /**
@@ -284,7 +286,9 @@ class ConfigCommand extends Command
 
         // Show configuration options nicely.
         foreach ($config as $key => $title) {
-            $this->output->writeln(str_pad($title.':', $longest_title + 1, ' ', STR_PAD_LEFT).' '.$deployment[$key]);
+            if (array_key_exists($key, $deployment)) {
+                $this->output->writeln(str_pad($title.':', $longest_title + 1, ' ', STR_PAD_LEFT).' '.$deployment[$key]);
+            }
         }
     }
 
@@ -389,7 +393,9 @@ class ConfigCommand extends Command
     private function flysystemS3($deployment_id = false)
     {
         // Defaults.
-        $config = [
+        $config = $default_config = [
+            'confirm'        => 'N',
+            'profile_name'   => '',
             'method'         => 's3',
             'key'            => '',
             'secret'         => '',
@@ -404,23 +410,34 @@ class ConfigCommand extends Command
             $config = $this->config['deployments'][$deployment_id];
         }
 
+        // Profile name.
+        $default = ' (default: '.array_get($config, 'profile_name', $default_config['profile_name']).')';
+        $question = new Question('Enter profile name'.$default.': ', array_get($config, 'profile_name'));
+        $config['profile_name'] = $this->helper->ask($this->input, $this->output, $question);
+
+        // Profile name.
+        $default = ' (default: '.array_get($config, 'confirm', $default_config['confirm']).')';
+        $question = new Question('Confirm before deployment'.$default.': ', array_get($config, 'confirm'));
+        $config['confirm'] = $this->helper->ask($this->input, $this->output, $question);
+
         // Access key.
-        $default = ($deployment_id !== false) ? ' (default: '.$config['key'].')' : '';
-        $question = new Question('Enter access key ID'.$default.': ', $config['key']);
+        $default = ' (default: '.array_get($config, 'key', $default_config['key']).')';
+        $question = new Question('Enter access key ID'.$default.': ', array_get($config, 'key'));
         $config['key'] = $this->helper->ask($this->input, $this->output, $question);
 
         // Secret key.
-        $default = ($deployment_id !== false) ? ' (default: '.$config['secret'].')' : '';
-        $question = new Question('Enter secret access key'.$default.': ', $config['secret']);
+        $default = ' (default: '.array_get($config, 'secret', $default_config['secret']).')';
+        $question = new Question('Enter secret access key'.$default.': ', array_get($config, 'secret'));
         $config['secret'] = $this->helper->ask($this->input, $this->output, $question);
 
         // Region.
-        $question = new Question('Enter region (default: '.$config['region'].'): ', $config['region']);
+        $default = ' (default: '.array_get($config, 'region', $default_config['region']).')';
+        $question = new Question('Enter region (default: '.$default.'): ', array_get($config, 'region', $default_config['region']));
         $config['region'] = $this->helper->ask($this->input, $this->output, $question);
 
         // Bucket.
-        $default = ($deployment_id !== false) ? ' (default: '.$config['bucket'].')' : '';
-        $question = new Question('Enter bucket name'.$default.': ', $config['bucket']);
+        $default = ' (default: '.array_get($config, 'bucket', $default_config['bucket']).')';
+        $question = new Question('Enter bucket name'.$default.': ', array_get($config, 'bucket', $default_config['bucket']));
         $config['bucket'] = $this->helper->ask($this->input, $this->output, $question);
 
         // Local path.

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "558634be36a08aeee9fd43f779de662d",
+    "content-hash": "97594fce769429a5743119f72bcb5cee",
     "packages": [
         {
             "name": "aws/aws-sdk-php",
@@ -764,6 +764,46 @@
             "time": "2016-10-10T12:19:37+00:00"
         },
         {
+            "name": "rappasoft/laravel-helpers",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/rappasoft/laravel-helpers.git",
+                "reference": "9dfbb3f316db9ec304eeeb94d2cfedd803680a57"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/rappasoft/laravel-helpers/zipball/9dfbb3f316db9ec304eeeb94d2cfedd803680a57",
+                "reference": "9dfbb3f316db9ec304eeeb94d2cfedd803680a57",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.4.0"
+            },
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "src/helpers.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Anthony Rappa",
+                    "email": "rappa819@gmail.com"
+                }
+            ],
+            "description": "Laravel Helpers for Non-Laravel Projects",
+            "keywords": [
+                "helpers",
+                "laravel"
+            ],
+            "time": "2016-10-19T14:15:19+00:00"
+        },
+        {
             "name": "symfony/console",
             "version": "v3.3.4",
             "source": {
@@ -1104,7 +1144,9 @@
     "packages-dev": [],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": [],
+    "stability-flags": {
+        "rappasoft/laravel-helpers": 20
+    },
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": [],

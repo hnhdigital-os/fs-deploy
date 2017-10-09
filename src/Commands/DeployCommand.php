@@ -7,6 +7,7 @@ use League\Flysystem\AwsS3v3\AwsS3Adapter;
 use League\Flysystem\Filesystem;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Question\Question;
 use Symfony\Component\Yaml\Yaml;
@@ -49,7 +50,8 @@ class DeployCommand extends Command
     {
         $this
             ->setName('deploy')
-            ->setDescription('Deploy this GIT repo to configured deployments');
+            ->setDescription('Deploy this GIT repo to configured deployments')
+            ->addOption('profile', 'p', InputOption::VALUE_OPTIONAL, 'Profile.');
     }
 
     /**
@@ -106,12 +108,48 @@ class DeployCommand extends Command
     private function deploy()
     {
         foreach ($this->config['deployments'] as $deployment) {
-            $this->output->writeln('Deploying <info>['.$deployment['method'].'] '.$this->displayDeploymentLine($deployment).'</info>');
+            // Deployment profile specified.
+            if ($this->input->getOption('profile') !== '' && !is_null($this->input->getOption('profile'))) {
+                if (!array_has($deployment, 'profile_name') || $this->input->getOption('profile') !== $deployment['profile_name']) {
+                    continue;
+                }
+            }
+            
+            // Visual.
+            $this->output->writeln('Processing <info>['.$deployment['method'].'] '.$this->displayDeploymentLine($deployment).'</info>');
+
+            // Deployment requires confirmation.
+            if (array_has($deployment, 'confirm')) {
+                if (stripos($deployment['confirm'], 'Y') !== false) {
+
+                    $question = new Question('Confirm deployment [y/N]: ', 'N');
+                    $answered = false;
+
+                    while (!$answered) {
+                        $answer = $this->helper->ask($this->input, $this->output, $question);
+
+                        if (stripos($answer, 'N') !== false || stripos($answer, 'Y') !== false) {
+                            $answered = true;
+                        }
+                    }
+
+                    if (stripos($answer, 'N') !== false) {
+                        $this->output->writeln('Skipping.');
+                        continue;
+                    }
+                }
+            }
+
+            // Setup filesystems.
             $local = new Filesystem(new LocalAdapter($this->cwd.$deployment['local_path']));
             $remote = new Filesystem($this->getAdapter($deployment));
 
+            $this->output->writeln('Synchronizing files.');
+
+            // Load local content list.
             $contents = $local->listContents('', true);
 
+            // Check files and sync.
             foreach ($contents as $entry) {
                 if ($entry['type'] == 'file') {
                     $update = false;
@@ -124,9 +162,12 @@ class DeployCommand extends Command
 
                     if ($update) {
                         $remote->put($entry['path'], $local->read($entry['path']));
+                        $this->output->write('.');
                     }
                 }
             }
+
+            $this->output->writeln('');
         }
     }
 
@@ -139,13 +180,19 @@ class DeployCommand extends Command
      */
     private function displayDeploymentLine($deployment)
     {
+        $text = '<error>Not a valid method</error>';
+
         switch ($deployment['method']) {
             case 's3':
-                return array_get($deployment, 'local_path', '').' => '.$deployment['bucket'].'.'.$deployment['region'].':'.array_get($deployment, 'remote_path', '');
+                $text = array_get($deployment, 'local_path', '').' => '.$deployment['bucket'].'.'.$deployment['region'].':'.array_get($deployment, 'remote_path', '');
                 break;
         }
 
-        return '<error>Not a valid method</error>';
+        if (array_has($deployment, 'profile_name')) {
+            $text = '['.strtoupper($deployment['profile_name']).'] '.$text;
+        }
+
+        return $text;
     }
 
     /**
