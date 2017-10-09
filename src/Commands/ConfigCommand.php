@@ -71,7 +71,7 @@ class ConfigCommand extends Command
 
     private $s3_options = [
         'confirm'      => 'Confirm before deployment',
-        'profile_name' => 'Profile name',
+        'profile' => 'Profile name',
         'method'       => 'Method',
         'key'          => 'Key',
         'secret'       => 'Secret',
@@ -394,15 +394,15 @@ class ConfigCommand extends Command
     {
         // Defaults.
         $config = $default_config = [
-            'confirm'        => 'N',
-            'profile_name'   => '',
-            'method'         => 's3',
-            'key'            => '',
-            'secret'         => '',
-            'region'         => 'us-east-1',
-            'bucket'         => '',
-            'local_path'     => '/',
-            'remote_path'    => '/',
+            'confirm'     => 'N',
+            'profile'     => '',
+            'method'      => 's3',
+            'key'         => '',
+            'secret'      => '',
+            'region'      => 'us-east-1',
+            'bucket'      => '',
+            'local_path'  => '/',
+            'remote_path' => '/',
         ];
 
         // Existing deployment.
@@ -411,9 +411,9 @@ class ConfigCommand extends Command
         }
 
         // Profile name.
-        $default = ' (default: '.array_get($config, 'profile_name', $default_config['profile_name']).')';
-        $question = new Question('Enter profile name'.$default.': ', array_get($config, 'profile_name'));
-        $config['profile_name'] = $this->helper->ask($this->input, $this->output, $question);
+        $default = ' (default: '.array_get($config, 'profile', $default_config['profile']).')';
+        $question = new Question('Enter profile name'.$default.': ', array_get($config, 'profile'));
+        $config['profile'] = $this->helper->ask($this->input, $this->output, $question);
 
         // Profile name.
         $default = ' (default: '.array_get($config, 'confirm', $default_config['confirm']).')';

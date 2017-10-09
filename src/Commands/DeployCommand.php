@@ -110,7 +110,7 @@ class DeployCommand extends Command
         foreach ($this->config['deployments'] as $deployment) {
             // Deployment profile specified.
             if ($this->input->getOption('profile') !== '' && !is_null($this->input->getOption('profile'))) {
-                if (!array_has($deployment, 'profile_name') || $this->input->getOption('profile') !== $deployment['profile_name']) {
+                if (!array_has($deployment, 'profile') || $this->input->getOption('profile') !== $deployment['profile']) {
                     continue;
                 }
             }
@@ -188,8 +188,8 @@ class DeployCommand extends Command
                 break;
         }
 
-        if (array_has($deployment, 'profile_name')) {
-            $text = '['.strtoupper($deployment['profile_name']).'] '.$text;
+        if (array_has($deployment, 'profile')) {
+            $text = '['.strtoupper($deployment['profile']).'] '.$text;
         }
 
         return $text;
