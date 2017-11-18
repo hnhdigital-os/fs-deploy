@@ -1,9 +1,18 @@
 #!/bin/bash
 #
 command -v box >/dev/null 2>&1 || {
+    echo "Installing box so we can build our phar executables"
     curl -LSs https://box-project.github.io/box2/installer.php | php
     sudo mv box.phar /usr/local/bin/box;
 }
+
+# Update php ini file to allow phars to be built.
+if [ "$(php -r "echo ini_get('phar.readonly');")" == "1" ]; then
+    INI_LOCATION=$(php --ini | grep 'Loaded Configuration File:         ')
+    INI_LOCATION=${INI_LOCATION/Loaded Configuration File:         /}
+    echo "Updating phar.readonly ini setting in ${INI_LOCATION}"
+    sudo sed -i.bak "${INI_LOCATION}" -e 's/;phar.readonly = On/phar.readonly = Off/g' 
+fi
 
 # config
 root=`pwd`
@@ -56,8 +65,7 @@ fi
 
 # create tagged releases
 for version in `git tag`; do
-    if [ ! -f "$root/$target/download/$version/$buildphar" ]
-    then
+    if [ ! -f "$root/$target/download/$version/$buildphar" ]; then
         mkdir -p "$root/$target/download/$version/"
         git checkout $version -q && \
         $composer install -q --no-dev && \
