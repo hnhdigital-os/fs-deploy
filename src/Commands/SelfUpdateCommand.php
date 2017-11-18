@@ -1,6 +1,6 @@
 <?php
 
-namespace HnhDigital\GitDeploy\Commands;
+namespace HnhDigital\FsDeploy\Commands;
 
 use GuzzleHttp\Client as Guzzle;
 use Symfony\Component\Console\Command\Command;
@@ -17,12 +17,12 @@ class SelfUpdateCommand extends Command
     /**
      * @var string
      */
-    protected $source_url = 'https://hnhdigital-os.github.io/git-deploy';
+    protected $source_url = 'https://hnhdigital-os.github.io/fs-deploy';
 
     /**
      * @var string
      */
-    protected $source_phar = 'git-deploy.phar';
+    protected $source_phar = 'fs-deploy.phar';
 
     /**
      * @var string
@@ -462,7 +462,7 @@ class SelfUpdateCommand extends Command
     {
         $is_temp = false;
         if (is_null($output_path)) {
-            $output_path = tempnam('/tmp', 'git-deploy');
+            $output_path = tempnam('/tmp', 'fs-deploy');
             $is_temp = true;
         }
         $client = new Guzzle();

@@ -1,6 +1,6 @@
 <?php
 
-namespace HnhDigital\GitDeploy\Commands;
+namespace HnhDigital\FsDeploy\Commands;
 
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -35,7 +35,7 @@ class ConfigCommand extends Command
     /**
      * @var string
      */
-    private $config_path = '.gitdeploy';
+    private $config_path = '.fsdeploy';
 
     /**
      * Current configuration.
@@ -71,7 +71,7 @@ class ConfigCommand extends Command
 
     private $s3_options = [
         'confirm'      => 'Confirm before deployment',
-        'profile' => 'Profile name',
+        'profile'      => 'Profile name',
         'method'       => 'Method',
         'key'          => 'Key',
         'secret'       => 'Secret',
@@ -118,11 +118,6 @@ class ConfigCommand extends Command
     {
         $this->helper = $this->getHelper('question');
         $this->cwd = getcwd();
-
-        // Does not run if not a git repo.
-        if (!file_exists($this->cwd.'/.git')) {
-            throw new \Exception('This folder does not contain a git repository');
-        }
 
         // Read the existing configuration.
         if (file_exists($this->cwd.'/'.$this->config_path)) {

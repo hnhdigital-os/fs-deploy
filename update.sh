@@ -2,9 +2,9 @@
 
 # config
 root=`pwd`
-build="git-deploy-src"
-buildphar="git-deploy.phar"
-repo="git@github.com:hnhdigital-os/git-deploy.git"
+build="fs-deploy-src"
+buildphar="fs-deploy.phar"
+repo="git@github.com:hnhdigital-os/fs-deploy.git"
 composer="composer"
 target="web"
 mode="tags"

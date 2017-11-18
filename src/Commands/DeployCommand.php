@@ -1,6 +1,6 @@
 <?php
 
-namespace HnhDigital\GitDeploy\Commands;
+namespace HnhDigital\FsDeploy\Commands;
 
 use League\Flysystem\Adapter\Local as LocalAdapter;
 use League\Flysystem\AwsS3v3\AwsS3Adapter;
@@ -39,7 +39,7 @@ class DeployCommand extends Command
     /**
      * @var string
      */
-    private $config_path = '.gitdeploy';
+    private $config_path = '.fsdeploy';
 
     /**
      * Configuration for command.
@@ -50,7 +50,7 @@ class DeployCommand extends Command
     {
         $this
             ->setName('deploy')
-            ->setDescription('Deploy this GIT repo to configured deployments')
+            ->setDescription('Run the configured deployments')
             ->addOption('profile', 'p', InputOption::VALUE_OPTIONAL, 'Profile.');
     }
 
@@ -80,14 +80,9 @@ class DeployCommand extends Command
         $this->helper = $this->getHelper('question');
         $this->cwd = getcwd();
 
-        // Does not run if not a git repo.
-        if (!file_exists($this->cwd.'/.git')) {
-            throw new \Exception('This folder does not contain a git repository');
-        }
-
-        // This git repo does not have a .gitdeploy
+        // This git repo does not have a .fsdeploy
         if (!file_exists($this->cwd.'/'.$this->config_path)) {
-            throw new \Exception('This folder has not been setup for GitDeploy');
+            throw new \Exception('This folder has not been setup for FsDeploy');
         }
 
         // Read the existing configuration.

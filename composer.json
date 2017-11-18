@@ -1,6 +1,6 @@
 {
-    "name": "hnhdigital-os/git-deploy",
-    "description": "GIT repo deploy",
+    "name": "hnhdigital-os/fs-deploy",
+    "description": "Deploy files to another place",
     "type": "project",
     "license": "MIT",
     "authors": [
@@ -26,7 +26,7 @@
             "vendor/illuminate/support/helpers.php"
         ],
         "psr-4": {
-            "HnhDigital\\GitDeploy\\": "src/"
+            "HnhDigital\\FsDeploy\\": "src/"
         }
     },
     "config": {

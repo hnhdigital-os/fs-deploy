@@ -1,4 +1,4 @@
 /vendor/
-/git-deploy-src
-/git-deploy.phar
-/git-deploy-old.phar
+/fs-deploy-src
+/fs-deploy.phar
+/fs-deploy-old.phar
