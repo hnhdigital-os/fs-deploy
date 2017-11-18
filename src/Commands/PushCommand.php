@@ -49,7 +49,7 @@ class PushCommand extends Command
     protected function configure()
     {
         $this
-            ->setName('deploy')
+            ->setName('push')
             ->setDescription('Run the configured deployments')
             ->addOption('profile', 'p', InputOption::VALUE_OPTIONAL, 'Profile.');
     }
