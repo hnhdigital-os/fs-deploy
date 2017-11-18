@@ -1,4 +1,9 @@
 #!/bin/bash
+#
+command -v box >/dev/null 2>&1 || {
+    curl -LSs https://box-project.github.io/box2/installer.php | php
+    sudo mv box.phar /usr/local/bin/box;
+}
 
 # config
 root=`pwd`
