@@ -1,5 +1,0 @@
-{
-    "stable": [{"path": "/download/1.0.5/installer.phar", "version": "1.0.5", "min-php": 70000}],
-    "preview": [{"path": "/download/1.0.5/installer.phar", "version": "1.0.5", "min-php": 70000}],
-    "snapshot": [{"path": "/download/snapshot/installer.phar", "version": "98140bad54a335068916145699478a6848e36d63", "min-php": 70000}]
-}
