@@ -10,8 +10,8 @@
             "in": "vendor"
         }
     ],
-    "fs-commit": "fs-commit",
-    "fs-version": "fs-version",
+    "git-commit": "git-commit",
+    "git-version": "git-version",
     "main": "bin/main",
     "output": "fs-deploy.phar",
     "stub": true
