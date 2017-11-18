@@ -10,6 +10,6 @@ use Symfony\Component\Console\Output\OutputInterface;
 $application = new Application('FsDeploy', 'RELEASE-VERSION');
 
 $application->add(new HnhDigital\FsDeploy\Commands\ConfigCommand());
-$application->add(new HnhDigital\FsDeploy\Commands\DeployCommand());
+$application->add(new HnhDigital\FsDeploy\Commands\PushCommand());
 $application->add(new HnhDigital\FsDeploy\Commands\SelfUpdateCommand());
 $application->run();

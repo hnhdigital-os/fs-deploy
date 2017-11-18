@@ -12,7 +12,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Question\Question;
 use Symfony\Component\Yaml\Yaml;
 
-class DeployCommand extends Command
+class PushCommand extends Command
 {
     /**
      * @var InputInterface

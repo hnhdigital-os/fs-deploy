@@ -26,13 +26,15 @@ This package has been developed by H&H|Digital, an Australian botique developer.
 
 GitDepoy created a .fsdeploy configuration file in the root directory of your project. It will automatically add this to your .gitignore file.
 
-Simply run fs-deploy in your project root folder:
+Simply run fs-deploy in your project root folder and follow the prompts to setup a deployment configuration.
 
 `$ fs-deploy config`
 
-Follow the prompts and then you can:
+Anytime you want to run a deployment, simply type:
 
-`$ fs-deploy deploy`
+`$ fs-deploy push`
+
+* Supports deployment profiles. Add the --profile= option to only use that profile.
 
 FsDeploy comes with the ability to self-update:
 
@@ -54,7 +56,7 @@ Please see [CONTRIBUTING](https://github.com/hnhdigital-os/fs-deploy/blob/master
 
 ## Credits
 
-* [Rocco Howard](https://github.com/therocis)
+* [Rocco Howard](https://github.com/RoccoHoward)
 * [All Contributors](https://github.com/hnhdigital-os/fs-deploy/contributors)
 
 ## License
