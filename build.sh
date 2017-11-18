@@ -29,12 +29,9 @@ then
 fi
 
 
-# init
-if [ ! -d "$root/$build" ]
-then
-    cd $root
-    git clone $repo $build
-fi
+cd $root
+rm -rf $build
+git clone $repo $build
 
 cd "$root/$build"
 
