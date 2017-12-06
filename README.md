@@ -20,7 +20,7 @@ This package has been developed by H&H|Digital, an Australian botique developer.
 
 `$ bash <(curl -s https://hnhdigital-os.github.io/fs-deploy/install)`
 
-`$ mv fs-deploy /usr/local/bin/fs-deploy`
+`$ sudo mv fs-deploy /usr/local/bin/fs-deploy`
 
 ## Usage
 
