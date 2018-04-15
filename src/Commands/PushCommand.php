@@ -140,24 +140,40 @@ class PushCommand extends Command
 
             $this->output->writeln('Synchronizing files.');
 
+            $this->output->writeln('');
+
             // Load local content list.
             $contents = $local->listContents('', true);
+
+            $this->output->writeln('Found <info>'.count($contents).' files in local</info>');
+
+            $this->output->writeln('');
 
             // Check files and sync.
             foreach ($contents as $entry) {
                 if ($entry['type'] == 'file') {
+
+                    $display_path = $entry['path'];
+                    if (mb_strlen($entry['path']) > 57) {
+                        $display_path = '...'.substr($display_path, -57);
+                    }
+
+                    $this->output->write(sprintf('[ %s ] [ %s ] %s', $local->getTimestamp($entry['path']), str_pad($local->getSize($entry['path']), 10, ' ', STR_PAD_LEFT), str_pad($display_path, 60, ' ')));
                     $update = false;
 
                     if (!$remote->has($entry['path'])) {
                         $update = true;
-                    } elseif ($local->getTimestamp($entry['path']) > $remote->getTimestamp($entry['path'])) {
+                    } elseif ($local->getTimestamp($entry['path']) > $remote->getTimestamp($entry['path'])
+                        || $local->getSize($entry['path']) != $remote->getSize($entry['path'])) {
                         $update = true;
                     }
 
                     if ($update) {
+                        $this->output->write(' [ --> ]');
                         $remote->put($entry['path'], $local->read($entry['path']));
-                        $this->output->write('.');
                     }
+
+                    $this->output->writeln('');
                 }
             }
 
