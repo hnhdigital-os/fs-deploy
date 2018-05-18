@@ -152,7 +152,6 @@ class PushCommand extends Command
             // Check files and sync.
             foreach ($contents as $entry) {
                 if ($entry['type'] == 'file') {
-
                     $display_path = $entry['path'];
                     if (mb_strlen($entry['path']) > 57) {
                         $display_path = '...'.substr($display_path, -57);
